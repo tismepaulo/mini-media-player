@@ -56,6 +56,11 @@ class MiniMediaPlayerTts extends LitElement {
         volume: config.volume || 0.5,
         message,
       });
+    else if (config.platform === 'wallpanel')
+      this.hass.callService('script', 'wallpanel_say', {
+        mqtt_topic: config.mqtt_topic,
+        message,
+      });
     else if (config.platform === 'webos')
       this.hass.callService('notify', opts.entity_id.split('.').slice(-1)[0], { message });
     else if (config.platform === 'ga')
